@@ -1,143 +1,56 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  increaseQuantity,
-  decreaseQuantity,
-  removeFromCart,
-} from "../redux/CartSlice";
+import { createSlice } from "@reduxjs/toolkit";
 
-function CartItem() {
-  const dispatch = useDispatch();
+const initialState = {
+  items: [],
+};
 
-  const cartItems = useSelector((state) => state.cart.items);
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    addItem: (state, action) => {
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
 
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.items.push({
+          ...action.payload,
+          quantity: 1,
+        });
+      }
+    },
 
-  if (cartItems.length === 0) {
-    return (
-      <section className="cart-page">
-        <h1>Your Shopping Cart</h1>
+    removeItem: (state, action) => {
+      state.items = state.items.filter(
+        (item) => item.id !== action.payload
+      );
+    },
 
-        <div className="empty-cart">
-          <h2>Your cart is empty</h2>
+    updateQuantity: (state, action) => {
+      const item = state.items.find(
+        (item) => item.id === action.payload.id
+      );
 
-          <p>
-            Add some beautiful plants to your cart.
-          </p>
+      if (item) {
+        item.quantity = action.payload.quantity;
 
-          <button
-            className="continue-shopping"
-            onClick={() => {
-              window.location.href = "/";
-            }}
-          >
-            Continue Shopping
-          </button>
-        </div>
-      </section>
-    );
-  }
+        if (item.quantity <= 0) {
+          state.items = state.items.filter(
+            (cartItem) => cartItem.id !== action.payload.id
+          );
+        }
+      }
+    },
+  },
+});
 
-  return (
-    <section className="cart-page">
-      <h1>Your Shopping Cart</h1>
+export const {
+  addItem,
+  removeItem,
+  updateQuantity,
+} = cartSlice.actions;
 
-      <div className="cart-container">
-        <div className="cart-items">
-          {cartItems.map((item) => {
-            const itemTotal = item.price * item.quantity;
-
-            return (
-              <div className="cart-item" key={item.id}>
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="cart-image"
-                />
-
-                <div className="cart-details">
-                  <h2>{item.name}</h2>
-
-                  <p>
-                    Unit Price: ${item.price}
-                  </p>
-
-                  <p>
-                    Total: ${itemTotal.toFixed(2)}
-                  </p>
-
-                  <div className="quantity-controls">
-                    <button
-                      onClick={() =>
-                        dispatch(decreaseQuantity(item.id))
-                      }
-                    >
-                      −
-                    </button>
-
-                    <span>{item.quantity}</span>
-
-                    <button
-                      onClick={() =>
-                        dispatch(increaseQuantity(item.id))
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  <button
-                    className="delete-button"
-                    onClick={() =>
-                      dispatch(removeFromCart(item.id))
-                    }
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="cart-summary">
-          <h2>Order Summary</h2>
-
-          <p>
-            Total Items:{" "}
-            {cartItems.reduce(
-              (total, item) => total + item.quantity,
-              0
-            )}
-          </p>
-
-          <h2>
-            Total Amount: ${totalAmount.toFixed(2)}
-          </h2>
-
-          <button
-            className="checkout-button"
-            onClick={() =>
-              alert("Checkout is Coming Soon!")
-            }
-          >
-            Checkout
-          </button>
-
-          <button
-            className="continue-shopping"
-            onClick={() => {
-              window.location.href = "/";
-            }}
-          >
-            Continue Shopping
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default CartItem;
+export default cartSlice.reducer;
