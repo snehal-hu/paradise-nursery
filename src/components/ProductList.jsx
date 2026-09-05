@@ -94,21 +94,13 @@ const plants = [
   },
 ];
 
-function ProductList({
-  onHomeClick,
-  onCartClick,
-  totalItems,
-}) {
+function ProductList({ onHomeClick, onCartClick, totalItems }) {
   const dispatch = useDispatch();
 
-  const cartItems = useSelector(
-    (state) => state.cart.items
-  );
+  const cartItems = useSelector((state) => state.cart.items);
 
   const isInCart = (plantName) => {
-    return cartItems.some(
-      (item) => item.name === plantName
-    );
+    return cartItems.some((item) => item.name === plantName);
   };
 
   const handleAddToCart = (plant) => {
@@ -119,29 +111,19 @@ function ProductList({
 
   return (
     <div className="product-page">
-
       <header className="product-header">
-        <div>
-          <button
-            className="home-button"
-            onClick={onHomeClick}
-          >
-            Home
-          </button>
-        </div>
+        <button className="home-button" onClick={onHomeClick}>
+          Home
+        </button>
 
         <h1>Paradise Nursery</h1>
 
-        <button
-          className="cart-button"
-          onClick={onCartClick}
-        >
+        <button className="cart-button" onClick={onCartClick}>
           Cart ({totalItems})
         </button>
       </header>
 
       <div className="product-list">
-
         {plants.map((category) => (
           <section
             className="plant-category"
@@ -152,11 +134,8 @@ function ProductList({
             </h2>
 
             <div className="product-grid">
-
               {category.plants.map((plant) => {
-                const alreadyAdded = isInCart(
-                  plant.name
-                );
+                const alreadyAdded = isInCart(plant.name);
 
                 return (
                   <div
@@ -184,9 +163,7 @@ function ProductList({
                         alreadyAdded ? "disabled" : ""
                       }`}
                       disabled={alreadyAdded}
-                      onClick={() =>
-                        handleAddToCart(plant)
-                      }
+                      onClick={() => handleAddToCart(plant)}
                     >
                       {alreadyAdded
                         ? "Added to Cart"
@@ -195,11 +172,9 @@ function ProductList({
                   </div>
                 );
               })}
-
             </div>
           </section>
         ))}
-
       </div>
     </div>
   );

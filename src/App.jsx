@@ -6,35 +6,39 @@ import AboutUs from "./components/AboutUs";
 import "./App.css";
 
 function App() {
-  const [view, setView] = useState("landing");
+  const [showProductList, setShowProductList] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
-  const cart = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
 
-  const totalCartItems = cart.reduce(
+  const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
 
-  const handleGetStartedClick = () => {
-    setView("product");
+  const handleGetStarted = () => {
+    setShowProductList(true);
+    setShowCart(false);
   };
 
   const handleCartClick = () => {
-    setView("cart");
+    setShowCart(true);
+    setShowProductList(false);
   };
 
   const handleHomeClick = () => {
-    setView("landing");
+    setShowProductList(false);
+    setShowCart(false);
   };
 
   const handleContinueShopping = () => {
-    setView("product");
+    setShowProductList(true);
+    setShowCart(false);
   };
 
   return (
     <div className="app-container">
-
-      {view === "landing" && (
+      {!showProductList && !showCart && (
         <div className="landing-page">
           <div className="background-image"></div>
 
@@ -48,7 +52,7 @@ function App() {
 
               <button
                 className="get-started-button"
-                onClick={handleGetStartedClick}
+                onClick={handleGetStarted}
               >
                 Get Started
               </button>
@@ -61,22 +65,22 @@ function App() {
         </div>
       )}
 
-      {view === "product" && (
+      {showProductList && !showCart && (
         <div className="product-list-container visible">
           <ProductList
             onHomeClick={handleHomeClick}
             onCartClick={handleCartClick}
-            totalItems={totalCartItems}
+            totalItems={totalItems}
           />
         </div>
       )}
 
-      {view === "cart" && (
+      {showCart && (
         <div className="cart-container visible">
           <CartItem
             onContinueShopping={handleContinueShopping}
             onHomeClick={handleHomeClick}
-            totalItems={totalCartItems}
+            totalItems={totalItems}
           />
         </div>
       )}
