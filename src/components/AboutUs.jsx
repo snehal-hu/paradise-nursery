@@ -6,29 +6,28 @@ function AboutUs() {
       <h2>Welcome to Paradise Nursery</h2>
 
       <p>
-        Paradise Nursery is an online plant shop dedicated to
-        providing beautiful, healthy, and high-quality houseplants
-        for homes and offices.
+        Paradise Nursery is an online plant shop dedicated to providing
+        beautiful, healthy, and high-quality houseplants for homes and
+        offices.
       </p>
 
       <p>
-        Our nursery offers a wide variety of indoor plants across
-        different categories, making it easy for beginners and
-        experienced plant lovers to find the perfect plants for
-        their spaces.
+        We offer a wide variety of indoor plants, including air-purifying
+        plants, aromatic plants, and medicinal plants. Our goal is to make
+        it easy for everyone to bring nature into their living spaces.
       </p>
 
       <p>
-        At Paradise Nursery, we believe that plants can make living
-        spaces greener, healthier, and more peaceful. Our goal is
-        to make buying and caring for houseplants simple and
-        enjoyable for everyone.
+        At Paradise Nursery, we carefully select and maintain our plants
+        so that every customer receives healthy and beautiful greenery.
       </p>
 
+      <h2>Our Mission</h2>
+
       <p>
-        Explore our collection, choose your favorite plants, and
-        bring a little piece of nature into your home with
-        Paradise Nursery.
+        Our mission is to help people create greener, healthier, and more
+        beautiful spaces by making quality plants accessible and
+        affordable.
       </p>
     </div>
   );

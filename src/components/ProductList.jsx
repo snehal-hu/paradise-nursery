@@ -1,200 +1,124 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/CartSlice";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../redux/CartSlice";
 
 const plants = [
-  // Indoor Plants
   {
     id: 1,
-    name: "Snake Plant",
-    price: 18,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1593482892290-f54927ae2b2a?auto=format&fit=crop&w=600&q=80",
+    name: "Aloe Vera",
+    category: "Aromatic Plants",
+    price: 15,
+    image:
+      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=500&q=80",
+    description:
+      "A beautiful and easy-to-care-for plant that is perfect for indoor spaces.",
   },
   {
     id: 2,
-    name: "Peace Lily",
-    price: 22,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=600&q=80",
+    name: "Snake Plant",
+    category: "Air Purifying Plants",
+    price: 20,
+    image:
+      "https://images.unsplash.com/photo-1593482892290-f54927ae2e3e?auto=format&fit=crop&w=500&q=80",
+    description:
+      "A low-maintenance plant known for improving indoor air quality.",
   },
   {
     id: 3,
-    name: "Monstera",
-    price: 30,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80",
+    name: "Peace Lily",
+    category: "Air Purifying Plants",
+    price: 25,
+    image:
+      "https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=500&q=80",
+    description:
+      "An elegant flowering plant that adds beauty to any room.",
   },
   {
     id: 4,
-    name: "ZZ Plant",
-    price: 25,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
+    name: "Spider Plant",
+    category: "Air Purifying Plants",
+    price: 18,
+    image:
+      "https://images.unsplash.com/photo-1572688484438-313a6e50c333?auto=format&fit=crop&w=500&q=80",
+    description:
+      "A popular indoor plant that is easy to grow and maintain.",
   },
   {
     id: 5,
-    name: "Rubber Plant",
-    price: 28,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1604762524889-3e2fcc145683?auto=format&fit=crop&w=600&q=80",
+    name: "Lavender",
+    category: "Aromatic Plants",
+    price: 22,
+    image:
+      "https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=500&q=80",
+    description:
+      "A fragrant plant that brings a relaxing aroma to your home.",
   },
   {
     id: 6,
-    name: "Pothos",
-    price: 16,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1614594575761-8f3b7f9f6c0f?auto=format&fit=crop&w=600&q=80",
-  },
-
-  // Succulents
-  {
-    id: 7,
-    name: "Aloe Vera",
-    price: 15,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 8,
-    name: "Jade Plant",
-    price: 20,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 9,
-    name: "Echeveria",
-    price: 14,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 10,
-    name: "Haworthia",
-    price: 17,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 11,
-    name: "String of Pearls",
-    price: 24,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1525498128493-380d1990a112?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 12,
-    name: "Zebra Haworthia",
-    price: 19,
-    category: "Succulents",
-    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80",
-  },
-
-  // Flowering Plants
-  {
-    id: 13,
-    name: "Orchid",
-    price: 35,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 14,
-    name: "African Violet",
-    price: 21,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 15,
-    name: "Anthurium",
-    price: 29,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 16,
-    name: "Begonia",
-    price: 23,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 17,
-    name: "Geranium",
-    price: 20,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 18,
-    name: "Kalanchoe",
-    price: 18,
-    category: "Flowering Plants",
-    image: "https://images.unsplash.com/photo-1459156875910-78c36b1e4d9b?auto=format&fit=crop&w=600&q=80",
+    name: "Basil",
+    category: "Medicinal Plants",
+    price: 12,
+    image:
+      "https://images.unsplash.com/photo-1618375569909-3c8616cf7733?auto=format&fit=crop&w=500&q=80",
+    description:
+      "A useful herb that can be grown indoors and used in cooking.",
   },
 ];
 
 function ProductList() {
   const dispatch = useDispatch();
 
-  const cartItems = useSelector((state) => state.cart.items);
-
-  const isInCart = (id) => {
-    return cartItems.some((item) => item.id === id);
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
   };
 
   const categories = [
-    "Indoor Plants",
-    "Succulents",
-    "Flowering Plants",
+    "Air Purifying Plants",
+    "Aromatic Plants",
+    "Medicinal Plants",
   ];
 
   return (
-    <section className="product-page">
+    <div className="products-page">
       <h1>Our Plants</h1>
 
-      <p className="product-intro">
-        Choose from our beautiful collection of plants.
+      <p className="products-intro">
+        Explore our collection of beautiful plants for your home and office.
       </p>
 
-      {categories.map((category) => (
-        <div className="category-section" key={category}>
-          <h2>{category}</h2>
+      {categories.map((category) => {
+        const categoryPlants = plants.filter(
+          (plant) => plant.category === category
+        );
 
-          <div className="product-grid">
-            {plants
-              .filter((plant) => plant.category === category)
-              .map((plant) => (
-                <div className="plant-card" key={plant.id}>
-                  <img
-                    src={plant.image}
-                    alt={plant.name}
-                  />
+        return (
+          <section className="plant-category" key={category}>
+            <h2>{category}</h2>
 
-                  <div className="plant-info">
-                    <h3>{plant.name}</h3>
+            <div className="product-grid">
+              {categoryPlants.map((plant) => (
+                <div className="product-card" key={plant.id}>
+                  <img src={plant.image} alt={plant.name} />
 
-                    <p className="price">
-                      ${plant.price}
-                    </p>
+                  <h3>{plant.name}</h3>
 
-                    <button
-                      className="add-button"
-                      onClick={() => dispatch(addToCart(plant))}
-                      disabled={isInCart(plant.id)}
-                    >
-                      {isInCart(plant.id)
-                        ? "Added to Cart"
-                        : "Add to Cart"}
-                    </button>
-                  </div>
+                  <p>{plant.description}</p>
+
+                  <p className="price">${plant.price}</p>
+
+                  <button
+                    className="add-to-cart-btn"
+                    onClick={() => handleAddToCart(plant)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               ))}
-          </div>
-        </div>
-      ))}
-    </section>
+            </div>
+          </section>
+        );
+      })}
+    </div>
   );
 }
 
