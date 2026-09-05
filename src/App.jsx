@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <div className="app">
-
+      {/* Navigation Bar */}
       <nav className="navbar">
         <h2
           className="logo"
@@ -40,17 +41,27 @@ function App() {
           <button onClick={() => setPage("cart")}>
             Cart ({cartCount})
           </button>
+
+          <button onClick={() => setPage("about")}>
+            About Us
+          </button>
         </div>
       </nav>
 
+      {/* Paradise Nursery Landing Page */}
       {page === "home" && (
         <section className="landing-page">
           <div className="landing-content">
             <h1>Paradise Nursery</h1>
 
             <p>
-              Bring nature into your home with our beautiful
-              collection of houseplants.
+              Welcome to Paradise Nursery, your online destination
+              for beautiful and healthy houseplants.
+            </p>
+
+            <p>
+              Explore our collection of plants and bring nature
+              into your home.
             </p>
 
             <button
@@ -59,23 +70,18 @@ function App() {
             >
               Get Started
             </button>
-
-            <button
-              className="about-button"
-              onClick={() => setPage("about")}
-            >
-              About Us
-            </button>
           </div>
         </section>
       )}
 
+      {/* About Us Page */}
       {page === "about" && <AboutUs />}
 
+      {/* Product Listing Page */}
       {page === "plants" && <ProductList />}
 
+      {/* Shopping Cart Page */}
       {page === "cart" && <CartItem />}
-
     </div>
   );
 }
