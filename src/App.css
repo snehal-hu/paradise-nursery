@@ -51,7 +51,7 @@ button {
   border-radius: 6px;
 }
 
-/* Landing Page */
+/* Paradise Nursery Landing Page */
 .landing-page {
   min-height: calc(100vh - 75px);
   display: flex;
@@ -59,58 +59,10 @@ button {
   justify-content: center;
   text-align: center;
 
-  background-image:
-    linear-gradient(
-      rgba(0, 0, 0, 0.35),
-      rgba(0, 0, 0, 0.35)
-    ),
-    url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1600&q=80");
-
+  background-image: url("./assets/hero.png");
   background-size: cover;
   background-position: center;
-}
-
-.landing-content {
-  background: rgba(255, 255, 255, 0.92);
-  padding: 45px;
-  border-radius: 15px;
-  max-width: 650px;
-  margin: 20px;
-}
-
-.landing-content h1 {
-  font-size: 48px;
-  margin-bottom: 15px;
-  color: #285c35;
-}
-
-.landing-content p {
-  font-size: 19px;
-  line-height: 1.6;
-}
-
-.get-started,
-.about-button {
-  border: none;
-  padding: 13px 25px;
-  margin: 10px 5px;
-  border-radius: 7px;
-  font-size: 16px;
-}
-
-.get-started {
-  background: #285c35;
-  color: white;
-}
-
-.about-button {
-  background: #dcebdc;
-  color: #285c35;
-}
-
-.get-started:hover,
-.about-button:hover {
-  transform: translateY(-2px);
+  background-repeat: no-repeat;
 }
 
 /* About */
